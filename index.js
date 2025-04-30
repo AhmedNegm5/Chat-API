@@ -3,6 +3,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const { Server } = require("socket.io");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpecs = require("./swagger");
 const userRoute = require("./routes/userRoute");
 const chatRoute = require("./routes/chatRoute");
 const messageRoute = require("./routes/messageRoute");
@@ -13,6 +15,17 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+// Swagger documentation
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpecs, {
+    explorer: true,
+    customCss: ".swagger-ui .topbar { display: none }",
+    customSiteTitle: "Chat API Documentation",
+  })
+);
 
 app.use("/api/users", userRoute);
 app.use("/api/chats", chatRoute);
