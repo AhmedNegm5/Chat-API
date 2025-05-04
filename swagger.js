@@ -96,7 +96,7 @@ The following sections document the REST API endpoints available in this applica
     },
     servers: [
       {
-        url: process.env.BASE_URL || "http://localhost:5000/api",
+        url: `${process.env.BASE_URL}/api` || "http://localhost:5000/api",
         description: "API Server",
       },
     ],
