@@ -79,23 +79,24 @@ router.get("/:userId", userChats);
 
 /**
  * @swagger
- * /chats/find/{firstId}/{secondId}:
- *   get:
+ * /chats/find:
+ *   post:
  *     summary: Find chat between two users
  *     tags: [Chats]
- *     parameters:
- *       - in: path
- *         name: firstId
- *         required: true
- *         schema:
- *           type: string
- *         description: First user ID
- *       - in: path
- *         name: secondId
- *         required: true
- *         schema:
- *           type: string
- *         description: Second user ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - firstId
+ *               - secondId
+ *             properties:
+ *               firstId:
+ *                 type: string
+ *               secondId:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Chat found
@@ -109,6 +110,6 @@ router.get("/:userId", userChats);
  *       404:
  *         description: Chat not found
  */
-router.get("/find/:firstId/:secondId", findChat);
+router.post("/find", findChat);
 
 module.exports = router;
